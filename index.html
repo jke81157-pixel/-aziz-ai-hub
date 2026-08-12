@@ -23,101 +23,149 @@
       margin: 0; min-height: 100vh; color: var(--text); background: var(--bg);
       font-family: Manrope, Arial, sans-serif; overflow-x: hidden;
     }
-    .app { min-height: 100vh; }
+    .app { min-height: 100vh; display: flex; }
     .sidebar {
-      width: 260px; position: fixed; inset: 0 auto 0 0; z-index: 40; padding: 23px 15px;
-      background: rgba(11, 11, 27, .88); backdrop-filter: blur(22px); border-right: 1px solid var(--line);
-      display: flex; flex-direction: column; transition: transform .3s ease; overflow-y: auto;
+      width: 260px; padding: 23px 15px; background: rgba(11, 11, 27, .88);
+      backdrop-filter: blur(22px); border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 20px;
     }
-    .brand { display: flex; align-items: center; gap: 11px; padding: 4px 10px 22px; }
-    .nav { display: grid; gap: 4px; }
+    .brand { display: flex; align-items: center; gap: 11px; padding: 4px 10px; font-weight: 800; }
+    .nav { display: grid; gap: 6px; }
     .nav button {
-      border: 1px solid transparent; background: transparent; display: flex; align-items: center; gap: 11px; width: 100%;
-      padding: 11px 12px; border-radius: 12px; color: #c9c7df; font-weight: 600; font-size: 13.5px; cursor: pointer;
+      border: 1px solid transparent; background: transparent; display: flex; align-items: center; gap: 11px;
+      width: 100%; padding: 12px 14px; border-radius: 12px; color: var(--muted); font-weight: 600; font-size: 13.5px; cursor: pointer; transition: 0.2s;
     }
-    .nav button.active { background: rgba(139, 92, 246, .14); border-color: rgba(139, 92, 246, .28); color: #fff; }
-    .main { margin-left: 260px; min-height: 100vh; padding: 26px 34px 70px; position: relative; }
+    .nav button:hover, .nav button.active { background: rgba(139, 92, 246, .14); border-color: rgba(139, 92, 246, .28); color: #fff; }
+    .main { flex: 1; padding: 30px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .api-pill { background: var(--panel-2); border: 1px solid var(--line); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--danger); }
+    .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .stat-card { background: var(--panel); border: 1px solid var(--line); padding: 18px; border-radius: 16px; display: flex; align-items: center; gap: 14px; }
+    .stat-card i { font-size: 24px; color: var(--purple); }
+    .stat-card .num { font-size: 20px; font-weight: 800; }
+    .stat-card .lbl { font-size: 12px; color: var(--muted); }
     .view { display: none; }
     .view.active { display: block; }
-    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-top: 20px; }
-    .btn-primary { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
-    input, textarea { width: 100%; background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 12px; border-radius: 10px; margin-top: 8px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow); }
+    .btn-grad { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; border: none; padding: 12px 22px; border-radius: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    input, textarea { width: 100%; background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 14px; border-radius: 12px; margin-top: 8px; font-family: inherit; }
+    .note-box { background: rgba(37, 217, 255, 0.05); border: 1px solid rgba(37, 217, 255, 0.2); padding: 16px; border-radius: 14px; font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: center; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="brand"><strong>AZIZ AI HUB</strong></div>
+      <div class="brand"><i class="ri-sparkling-fill" style="color:var(--pink)"></i> AZIZ AI HUB</div>
       <nav class="nav">
-        <button class="active" onclick="switchTab('dashboard')"><i class="ri-dashboard-line"></i> Dashboard</button>
-        <button onclick="switchTab('image')"><i class="ri-image-line"></i> Image Generator</button>
-        <button onclick="switchTab('video')"><i class="ri-movie-line"></i> Video Generator</button>
-        <button onclick="switchTab('settings')"><i class="ri-settings-4-line"></i> API Settings</button>
+        <button class="active" onclick="showTab('dashboard', this)"><i class="ri-dashboard-line"></i> Dashboard</button>
+        <button onclick="showTab('image', this)"><i class="ri-image-2-line"></i> Image Generator</button>
+        <button onclick="showTab('video', this)"><i class="ri-movie-2-line"></i> Video Generator</button>
+        <button onclick="showTab('settings', this)"><i class="ri-settings-4-line"></i> API Settings</button>
       </nav>
     </aside>
 
     <main class="main">
-      <!-- DASHBOARD -->
+      <div class="topbar">
+        <div>
+          <h1 id="pageTitle" style="margin:0; font-size:22px;">Dashboard</h1>
+          <p id="pageSub" style="margin:4px 0 0; color:var(--muted); font-size:13px;">Overview of your creative workspace</p>
+        </div>
+        <div class="api-pill"><span class="dot"></span> Image API · Video API not connected</div>
+      </div>
+
+      <!-- DASHBOARD VIEW -->
       <section id="view-dashboard" class="view active">
-        <h2>Dashboard</h2>
-        <p style="color:var(--muted)">Overview of your creative workspace</p>
-        <div class="panel">
-          <h3>AI Image Generator</h3>
-          <p style="color:var(--muted)">Turn prompts or reference photos into new images.</p>
-          <button class="btn-primary" onclick="switchTab('image')">Open Image Generator</button>
+        <div class="grid-stats">
+          <div class="stat-card"><i class="ri-image-line"></i><div><div class="num">0</div><div class="lbl">Images Generated</div></div></div>
+          <div class="stat-card"><i class="ri-film-line"></i><div><div class="num">0</div><div class="lbl">Videos Generated</div></div></div>
+          <div class="stat-card"><i class="ri-folder-line"></i><div><div class="num">0</div><div class="lbl">Saved Creations</div></div></div>
+          <div class="stat-card"><i class="ri-time-line"></i><div><div class="num">0</div><div class="lbl">Total Requests</div></div></div>
+        </div>
+
+        <div class="card">
+          <h3><i class="ri-image-2-line" style="color:var(--purple)"></i> AI Image Generator</h3>
+          <p style="color:var(--muted); font-size:14px;">Turn prompts or reference photos into new images. Supports text-to-image and image-to-image.</p>
+          <button class="btn-grad" onclick="showTab('image', document.querySelectorAll('.nav button')[1])"><i class="ri-magic-line"></i> Open Image Generator</button>
+        </div>
+
+        <div class="card">
+          <h3><i class="ri-movie-2-line" style="color:var(--pink)"></i> AI Video Generator</h3>
+          <p style="color:var(--muted); font-size:14px;">Generate short video clips from text or an uploaded image.</p>
+          <button class="btn-grad" onclick="showTab('video', document.querySelectorAll('.nav button')[2])"><i class="ri-play-circle-line"></i> Open Video Generator</button>
+        </div>
+
+        <div class="note-box">
+          <i class="ri-information-line" style="color:var(--cyan); font-size:18px;"></i>
+          <div>This workspace ships with a real API integration structure for image & video generation. Connect your provider keys in API Settings to go live.</div>
         </div>
       </section>
 
-      <!-- IMAGE GENERATOR -->
+      <!-- IMAGE GENERATOR VIEW -->
       <section id="view-image" class="view">
-        <h2>Image Generator</h2>
-        <div class="panel">
+        <div class="card">
+          <h2>Image Generator</h2>
+          <p style="color:var(--muted)">Create original images from text, or transform an uploaded image.</p>
           <label>Prompt</label>
-          <textarea placeholder="Describe the image you want to generate..."></textarea>
+          <textarea rows="4" placeholder="Describe the image you want to generate... e.g. 'A futuristic city skyline at sunset'"></textarea>
           <br><br>
-          <button class="btn-primary" onclick="alert('يرجى ربط API Key أولاً من الإعدادات')">Generate Image</button>
+          <button class="btn-grad" onclick="alert('يرجى إدخال مفتاح Replicate API في صفحة الإعدادات لتفعيل التوليد.')"><i class="ri-sparkling-line"></i> Generate Image</button>
         </div>
       </section>
 
-      <!-- VIDEO GENERATOR -->
+      <!-- VIDEO GENERATOR VIEW -->
       <section id="view-video" class="view">
-        <h2>Video Generator</h2>
-        <div class="panel">
+        <div class="card">
+          <h2>Video Generator</h2>
+          <p style="color:var(--muted)">Generate short video clips from text or reference images.</p>
           <label>Prompt</label>
-          <textarea placeholder="Describe the video you want to generate..."></textarea>
+          <textarea rows="4" placeholder="Describe the video animation..."></textarea>
           <br><br>
-          <button class="btn-primary" onclick="alert('يرجى ربط API Key أولاً من الإعدادات')">Generate Video</button>
+          <button class="btn-grad" onclick="alert('يرجى إدخال مفتاح API في صفحة الإعدادات أولاً.')"><i class="ri-video-add-line"></i> Generate Video</button>
         </div>
       </section>
 
-      <!-- SETTINGS -->
+      <!-- SETTINGS VIEW -->
       <section id="view-settings" class="view">
-        <h2>API Settings</h2>
-        <div class="panel">
-          <label>Replicate API Key</label>
-          <input type="password" placeholder="r8_********************************">
-          <br><br>
-          <button class="btn-primary" onclick="alert('تم حفظ المفتاح بنجاح!')">Save Keys</button>
+        <div class="card">
+          <h2>API Settings</h2>
+          <p style="color:var(--muted)">Enter your provider API keys below to activate generation services.</p>
+          <div style="margin-top:20px;">
+            <label>Replicate API Key</label>
+            <input type="password" placeholder="r8_********************************">
+          </div>
+          <div style="margin-top:15px;">
+            <label>OpenAI / Provider Key (Optional)</label>
+            <input type="password" placeholder="sk-********************************">
+          </div>
+          <br>
+          <button class="btn-grad" onclick="alert('تم حفظ المفاتيح بنجاح!')"><i class="ri-save-line"></i> Save Keys</button>
         </div>
       </section>
     </main>
   </div>
 
   <script>
-    function switchTab(tabName) {
-      // إخفاء كل الصفحات
-      document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-      // إزالة التحديد عن كل الأزرار
-      document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('view-' + tabId).classList.add('active');
+      if(btn) btn.classList.add('active');
 
-      // إظهار الصفحة المطلوبة
-      const targetView = document.getElementById('view-' + tabName);
-      if (targetView) targetView.classList.add('active');
-
-      // تحديد الزر النشط
-      event.currentTarget.classList.add('active');
+      const titles = {
+        'dashboard': ['Dashboard', 'Overview of your creative workspace'],
+        'image': ['Image Generator', 'Generate original AI visuals'],
+        'video': ['Video Generator', 'Create dynamic AI video clips'],
+        'settings': ['API Settings', 'Configure your provider keys']
+      };
+      
+      if(titles[tabId]) {
+        document.getElementById('pageTitle').innerText = titles[tabId][0];
+        document.getElementById('pageSub').innerText = titles[tabId][1];
+      }
     }
   </script>
 </body>
   </html>
-            
+  
