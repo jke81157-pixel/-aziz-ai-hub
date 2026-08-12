@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -318,6 +319,7 @@ textarea{min-height:110px;line-height:1.5}
       <div class="api-pill"><span class="dot bad" id="topDot"></span><span id="topStatus">Image API · Video API not connected</span></div>
     </div>
 
+    <!-- DASHBOARD -->
     <section class="view active" id="view-dashboard">
       <div class="grid-stats">
         <div class="stat-card"><i class="ri-image-line"></i><div class="num" id="statImages">0</div><div class="lbl">Images Generated</div></div>
@@ -345,10 +347,11 @@ textarea{min-height:110px;line-height:1.5}
       </div>
     </section>
 
+    <!-- IMAGE GENERATOR -->
     <section class="view" id="view-image">
       <div class="tabs-row">
-        <button class="tab-btn active" data-gtab="image" onclick="goTo('image')"><i class="ri-image-2-line"></i>Image</button>
-        <button class="tab-btn" data-gtab="video-jump" onclick="goTo('video')"><i class="ri-movie-2-line"></i>Video</button>
+        <button class="tab-btn active" data-gtab="image"><i class="ri-image-2-line"></i>Image</button>
+        <button class="tab-btn" data-gtab="video-jump"><i class="ri-movie-2-line"></i>Video</button>
       </div>
 
       <div class="panel-layout">
@@ -379,4 +382,4 @@ textarea{min-height:110px;line-height:1.5}
 
           <div class="field">
             <label>Prompt</label>
-            <textarea id="imgPrompt" placeholder="Describe the image you want to generate... e.g. 'A futuristic city skyline at sunset, cinematic lighting, ultra-detailed'"
+            <textarea id="imgPrompt" placeholder="Describe the image you want to generate... e.g. 'A futuristic city skyline at sunset, cinematic lighting, ultr
