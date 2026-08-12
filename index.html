@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080815">
+<title>AZIZ AI CREATIVE HUB — Creative Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+<style>
+:root{
+  --bg:#080815;--panel:rgba(20,20,42,.78);--panel-solid:#15152d;--panel-2:#101024;
+  --line:rgba(255,255,255,.11);--line-strong:rgba(255,255,255,.18);--text:#f7f6ff;
+  --muted:#a5a3bd;--purple:#8b5cf6;--pink:#ed3aae;--cyan:#25d9ff;--lime:#b7f74a;
+  --orange:#ff964f;--danger:#ff637e;--success:#74e8a1;--shadow:0 24px 70px rgba(0,0,0,.35);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);background:var(--bg);
+  font-family:Manrope,Arial,sans-serif;overflow-x:hidden;
+}
+body::before,body::after{
+  content:"";position:fixed;pointer-events:none;z-index:-1;border-radius:50%;filter:blur(22px)
+}
+body::before{width:570px;height:570px;top:-285px;left:12%;background:radial-gradient(circle,rgba(119,58,245,.27),transparent 67%)}
+body::after{width:530px;height:530px;right:-190px;bottom:-225px;background:radial-gradient(circle,rgba(0,211,255,.17),transparent 64%)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.hidden{display:none!important}
+a{color:inherit}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:20px}
+::-webkit-scrollbar-track{background:transparent}
+
+.app{min-height:100vh}
+.sidebar{
+  width:260px;position:fixed;inset:0 auto 0 0;z-index:40;padding:23px 15px;
+  background:rgba(11,11,27,.88);backdrop-filter:blur(22px);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .3s ease;overflow-y:auto
+}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 10px 22px}
+.logo{
+  width:41px;height:41px;display:grid;place-items:center;border-radius:13px;font-weight:800;font-size:11px;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#6849ff,#ef38ac 62%,#ff9f4d);box-shadow:0 7px 23px rgba(159,57,239,.38)
+}
+.brand strong{font-size:14px;letter-spacing:.8px}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.9px;margin-top:2px}
+.nav-label{color:#72708e;font-size:10px;font-weight:800;letter-spacing:1.4px;padding:0 11px;margin:14px 0 7px}
+.nav{display:grid;gap:4px}
+.nav button{
+  border:1px solid transparent;background:transparent;display:flex;align-items:center;gap:11px;width:100%;
+  padding:11px 12px;border-radius:12px;color:#c9c7df;font-weight:600;font-size:13.5px;transition:.2s;text-align:left
+}
+.nav button i{font-size:18px;opacity:.9;width:20px;text-align:center}
+.nav button:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.06);color:#fff}
+.nav button.active{background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.28);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.nav button.active i{color:var(--purple)}
+.nav .badge-mini{margin-left:auto;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:20px;background:rgba(255,255,255,.08);color:var(--muted)}
+.sidebar-footer{margin-top:auto;padding:15px 8px 2px;border-top:1px solid var(--line)}
+.status-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-family:"DM Mono",monospace}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.dot.ok{background:var(--success);box-shadow:0 0 10px var(--success)}
+.dot.bad{background:var(--danger);box-shadow:0 0 10px var(--danger)}
+
+.main{margin-left:260px;min-height:100vh;padding:26px 34px 70px;position:relative}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:26px;
+  flex-wrap:wrap
+}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.menu-btn{
+  display:none;width:42px;height:42px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line);
+  align-items:center;justify-content:center;font-size:18px
+}
+.page-title h1{margin:0;font-size:22px;letter-spacing:-.3px}
+.page-title p{margin:3px 0 0;color:var(--muted);font-size:12.5px}
+.api-pill{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;border:1px solid var(--line);
+  background:var(--panel-2);font-size:11.5px;font-family:"DM Mono",monospace;color:var(--muted)
+}
+
+.view{display:none;animation:fadein .35s ease}
+.view.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.grid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.stat-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;
+  box-shadow:var(--shadow)
+}
+.stat-card i{font-size:22px;color:var(--purple);margin-bottom:10px;display:block}
+.stat-card .num{font-size:26px;font-weight:800}
+.stat-card .lbl{color:var(--muted);font-size:12px;margin-top:2px}
+
+.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.quick-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden
+}
+.quick-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,.12),transparent 60%);pointer-events:none}
+.quick-card i.big{font-size:30px;color:var(--cyan);margin-bottom:12px;display:block}
+.quick-card h3{margin:0 0 6px;font-size:18px}
+.quick-card p{margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:13px;border:1px solid var(--line-strong);
+  background:var(--panel-2);font-weight:700;font-size:13px;transition:.2s
+}
+.btn:hover{border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
+.btn.primary{
+  background:linear-gradient(135deg,#8b5cf6,#ed3aae);border:none;box-shadow:0 12px 30px rgba(139,92,246,.35);color:#fff
+}
+.btn.primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:transparent}
+.btn.sm{padding:8px 13px;font-size:12px;border-radius:10px}
+.btn.full{width:100%;justify-content:center}
+
+.panel-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+  box-shadow:var(--shadow)
+}
+.panel h2{margin:0 0 4px;font-size:17px;display:flex;align-items:center;gap:9px}
+.panel h2 i{color:var(--purple)}
+.panel .sub{color:var(--muted);font-size:12.5px;margin:0 0 18px}
+
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase}
+textarea,input[type=text],input[type=password],input[type=url]{
+  width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;color:var(--text);
+  padding:13px 14px;font-size:13.5px;resize:vertical;transition:.2s
+}
+textarea:focus,input:focus{border-color:rgba(139,92,246,.5)}
+textarea{min-height:110px;line-height:1.5}
+
+.pill-group{display:flex;flex-wrap:wrap;gap:8px}
+.pill{
+  padding:9px 15px;border-radius:11px;border:1px solid var(--line);background:var(--panel-2);
+  font-size:12.5px;font-weight:700;color:var(--muted);transition:.2s;display:flex;align-items:center;gap:6px
+}
+.pill:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.pill.active{background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(237,58,174,.2));border-color:rgba(139,92,246,.5);color:#fff}
+.pill i{font-size:14px}
+
+.upload-zone{
+  border:1.5px dashed var(--line-strong);border-radius:16px;padding:26px 16px;text-align:center;
+  background:rgba(255,255,255,.02);transition:.2s;cursor:pointer;position:relative
+}
+.upload-zone:hover{border-color:var(--purple);background:rgba(139,92,246,.06)}
+.upload-zone i{font-size:26px;color:var(--purple);margin-bottom:8px;display:block}
+.upload-zone p{margin:0;color:var(--muted);font-size:12.5px}
+.upload-zone span{color:#fff;font-weight:700}
+.upload-preview{margin-top:12px;position:relative;display:none}
+.upload-preview img{width:100%;border-radius:12px;max-height:170px;object-fit:cover;display:block}
+.upload-preview .rm{
+  position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(8,8,21,.8);
+  border:1px solid var(--line);display:grid;place-items:center;font-size:13px
+}
+
+.result-box{
+  border-radius:16px;border:1px solid var(--line);background:var(--panel-2);min-height:280px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px;gap:12px
+}
+.result-box .r-icon{font-size:34px;color:var(--muted)}
+.result-box.error .r-icon{color:var(--danger)}
+.result-box.warn .r-icon{color:var(--orange)}
+.result-box.loading .r-icon{color:var(--cyan)}
+.result-box h4{margin:0;font-size:15px}
+.result-box p{margin:0;color:var(--muted);font-size:12.5px;max-width:360px;line-height:1.5}
+.result-box .code-tag{
+  font-family:"DM Mono",monospace;font-size:11px;background:rgba(255,255,255,.06);padding:4px 10px;border-radius:8px;color:var(--muted)
+}
+.result-media{width:100%;border-radius:14px;overflow:hidden;display:none}
+.result-media img,.result-media video{width:100%;display:block;border-radius:14px}
+.result-actions{display:flex;gap:10px;margin-top:14px;width:100%}
+
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.12);border-top-color:var(--cyan);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.tabs-row{display:flex;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab-btn{
+  padding:12px 20px;border-radius:12px 12px 0 0;background:transparent;border:1px solid transparent;
+  color:var(--muted);font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:8px;margin-bottom:-1px
+}
+.tab-btn.active{color:#fff;background:var(--panel);border:1px solid var(--line);border-bottom-color:var(--panel)}
+.tab-btn i{font-size:16px}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.gcard{
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+  display:flex;flex-direction:column
+}
+.gcard .thumb{
+  aspect-ratio:1/1;background:var(--panel-2);display:flex;align-items:center;justify-content:center;color:var(--muted);
+  font-size:26px;position:relative;overflow:hidden
+}
+.gcard .thumb img,.gcard .thumb video{width:100%;height:100%;object-fit:cover}
+.gcard .thumb .type-tag{
+  position:absolute;top:8px;left:8px;font-size:10px;font-weight:800;padding:4px 8px;border-radius:8px;
+  background:rgba(8,8,21,.7);letter-spacing:.5px
+}
+.gcard .info{padding:12px 13px 14px;display:flex;flex-direction:column;gap:8px}
+.gcard .info p{margin:0;font-size:12px;color:var(--muted);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gcard .meta{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:#807ea0;font-family:"DM Mono",monospace}
+
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius);background:var(--panel)
+}
+.empty-state i{font-size:36px;display:block;margin-bottom:12px;color:#514f70}
+
+.history-list{display:flex;flex-direction:column;gap:10px}
+.hist-row{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);
+  border-radius:15px;box-shadow:var(--shadow)
+}
+.hist-row .h-icon{
+  width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:16px;flex-shrink:0;background:var(--panel-2)
+}
+.hist-row .h-body{flex:1;min-width:0}
+.hist-row .h-body strong{display:block;font-size:13px}
+.hist-row .h-body span{color:var(--muted);font-size:11.5px;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status-tag{font-size:10px;font-weight:800;padding:5px 10px;border-radius:20px;flex-shrink:0}
+.status-tag.success{background:rgba(116,232,161,.15);color:var(--success)}
+.status-tag.error{background:rgba(255,99,126,.15);color:var(--danger)}
+.status-tag.warn{background:rgba(255,150,79,.15);color:var(--orange)}
+
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.note-box{
+  background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);border-radius:14px;padding:14px 16px;font-size:12.5px;
+  color:#d6d3f5;line-height:1.6;display:flex;gap:10px
+}
+.note-box i{color:var(--purple);font-size:18px;flex-shrink:0}
+
+.toast-wrap{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:10px}
+.toast{
+  background:var(--panel-solid);border:1px solid var(--line-strong);padding:13px 18px;border-radius:13px;
+  font-size:13px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;animation:toastin .25s ease;max-width:320px
+}
+@keyframes toastin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.toast i{font-size:16px}
+.toast.success i{color:var(--success)}
+.toast.error i{color:var(--danger)}
+.toast.info i{color:var(--cyan)}
+
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:35}
+
+@media(max-width:1080px){
+  .panel-layout{grid-template-columns:1fr}
+  .grid-stats{grid-template-columns:repeat(2,1fr)}
+  .quick-actions{grid-template-columns:1fr}
+  .settings-grid{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:20px 16px 60px}
+  .menu-btn{display:grid}
+  .overlay.show{display:block}
+}
+@media(max-width:520px){
+  .grid-stats{grid-template-columns:1fr 1fr}
+  .tabs-row{overflow-x:auto}
+  .result-actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo">AI</div>
+      <div>
+        <strong>AZIZ AI HUB</strong>
+        <small>CREATIVE INTELLIGENCE</small>
+      </div>
+    </div>
+
+    <div class="nav-label">WORKSPACE</div>
+    <div class="nav">
+      <button class="nav-item active" data-view="dashboard"><i class="ri-dashboard-3-line"></i>Dashboard</button>
+      <button class="nav-item" data-view="image"><i class="ri-image-2-line"></i>Image Generator<span class="badge-mini">AI</span></button>
+      <button class="nav-item" data-view="video"><i class="ri-movie-2-line"></i>Video Generator<span class="badge-mini">AI</span></button>
+    </div>
+
+    <div class="nav-label">LIBRARY</div>
+    <div class="nav">
+      <button class="nav-item" data-view="creations"><i class="ri-gallery-line"></i>My Creations</button>
+      <button class="nav-item" data-view="history"><i class="ri-history-line"></i>History</button>
+    </div>
+
+    <div class="nav-label">SYSTEM</div>
+    <div class="nav">
+      <button class="nav-item" data-view="settings"><i class="ri-settings-4-line"></i>API Settings</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-row"><span class="dot bad" id="sidebarDot"></span><span id="sidebarStatus">APIs not configured</span></div>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn"><i class="ri-menu-line"></i></button>
+        <div class="page-title">
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSub">Overview of your creative workspace</p>
+        </div>
+      </div>
+      <div class="api-pill"><span class="dot bad" id="topDot"></span><span id="topStatus">Image API · Video API not connected</span></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="grid-stats">
+        <div class="stat-card"><i class="ri-image-line"></i><div class="num" id="statImages">0</div><div class="lbl">Images Generated</div></div>
+        <div class="stat-card"><i class="ri-film-line"></i><div class="num" id="statVideos">0</div><div class="lbl">Videos Generated</div></div>
+        <div class="stat-card"><i class="ri-folder-line"></i><div class="num" id="statCreations">0</div><div class="lbl">Saved Creations</div></div>
+        <div class="stat-card"><i class="ri-time-line"></i><div class="num" id="statHistory">0</div><div class="lbl">Total Requests</div></div>
+      </div>
+      <div class="quick-actions">
+        <div class="quick-card">
+          <i class="ri-image-2-line big"></i>
+          <h3>AI Image Generator</h3>
+          <p>Turn prompts or reference photos into new images. Supports text-to-image and image-to-image with 1:1, 9:16 and 16:9 formats.</p>
+          <button class="btn primary" onclick="goTo('image')"><i class="ri-magic-line"></i>Open Image Generator</button>
+        </div>
+        <div class="quick-card">
+          <i class="ri-movie-2-line big"></i>
+          <h3>AI Video Generator</h3>
+          <p>Generate short video clips from text or an uploaded image, with 5s/8s/10s durations and 9:16 / 16:9 formats.</p>
+          <button class="btn primary" onclick="goTo('video')"><i class="ri-play-circle-line"></i>Open Video Generator</button>
+        </div>
+      </div>
+      <div style="margin-top:20px" class="note-box">
+        <i class="ri-information-line"></i>
+        <div>This workspace ships with a real API integration structure for image &amp; video generation. No fake or simulated results are ever shown — connect your provider keys in <strong>API Settings</strong> to go live.</div>
+      </div>
+    </section>
+
+    <!-- IMAGE GENERATOR -->
+    <section class="view" id="view-image">
+      <div class="tabs-row">
+        <button class="tab-btn active" data-gtab="image"><i class="ri-image-2-line"></i>Image</button>
+        <button class="tab-btn" data-gtab="video-jump"><i class="ri-movie-2-line"></i>Video</button>
+      </div>
+
+      <div class="panel-layout">
+        <div class="panel">
+          <h2><i class="ri-sparkling-2-line"></i>Image Generator</h2>
+          <p class="sub">Create original images from text, or transform an uploaded image.</p>
+
+          <div class="field">
+            <label>Mode</label>
+            <div class="pill-group" id="imgModeGroup">
+              <button class="pill active" data-mode="text-to-image"><i class="ri-text"></i>Text to Image</button>
+              <button class="pill" data-mode="image-to-image"><i class="ri-image-edit-line"></i>Image to Image</button>
+            </div>
+          </div>
+
+          <div class="field" id="imgUploadField" style="display:none">
+            <label>Reference Image</label>
+            <div class="upload-zone" id="imgUploadZone">
+              <i class="ri-upload-cloud-2-line"></i>
+              <p><span>Click to upload</span> or drag an image here</p>
+              <input type="file" accept="image/*" id="imgFileInput" style="display:none">
+            </div>
+            <div class="upload-preview" id="imgUploadPreview">
+              <img id="imgUploadImg" alt="Uploaded reference">
+              <button class="rm" id="imgUploadRemove"><i class="ri-close-line"></i></button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Prompt</label>
+            <textarea id="imgPrompt" placeholder="Describe the image you want to generate... e.g. 'A futuristic city skyline at sunset, cinematic lighting, ultra detailed'"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Aspect Ratio</label>
+            <div class="pill-group" id="imgRatioGroup">
+              <button class="pill active" data-ratio="1:1"><i class="ri-checkbox-blank-line"></i>1:1</button>
+              <button class="pill" data-ratio="9:16"><i class="ri-smartphone-line"></i>9:16</button>
+              <button class="pill" data-ratio="16:9"><i class="ri-tv-line"></i>16:9</button>
+            </div>
+          </div>
+
+          <button class="btn primary full" id="imgGenerateBtn"><i class="ri-magic-line"></i>Generate Image</button>
+        </div>
+
+        <div class="panel">
+          <h2><i class="ri-gallery-line"></i>Result</h2>
+          <p class="sub">Your generated image will appear here.</p>
+          <div class="result-box" id="imgResultBox">
+            <i class="ri-image-add-line r-icon"></i>
+            <h4>No image yet</h4>
+            <p>Fill in your prompt and click Generate Image to create your first result.</p>
+          </div>
+          <div class="result-media" id="imgResultMedia"><img id="imgResultImg" alt="Generated image"></div>
+          <div class="result-actions hidden" id="imgResultActions">
+            <button class="btn sm full" id="imgDownloadBtn"><i class="ri-download-2-line"></i>Download</button>
+            <button class="btn sm full" id="imgRegenBtn"><i class="ri-refresh-line"></i>Regenerate</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO GENERATOR -->
+    <section class="view" id="view-video">
+      <div class="tabs-row">
+        <button class="tab-btn" data-gtab="image-jump"><i class="ri-image-2-line"></i>Image</button>
+        <button class="tab-btn active" data-gtab="video"><i class="ri-movie-2-line"></i>Video</button>
+      </div>
+
+      <div class="panel-layout">
+        <div class="panel">
+          <h2><i class="ri-clapperboard-line"></i>Video Generator</h2>
+          <p class="sub">Create short AI video clips from text or an image.</p>
+
+          <div class="field">
+            <label>Mode</label>
+            <div class="pill-group" id="vidModeGroup">
+              <button class="pill active" data-mode="text-to-video"><i class="ri-text"></i>Text to Video</button>
+              <button class="pill" data-mode="image-to-video"><i class="ri-image-edit-line"></i>Image to Video</button>
+            </div>
+          </div>
+
+          <div class="field" id="vidUploadField" style="display:none">
+            <label>Source Image</label>
+            <div class="upload-zone" id="vidUploadZone">
+              <i class="ri-upload-cloud-2-line"></i>
+              <p><span>Click to upload</span> or drag an image here</p>
+              <input type="file" accept="image/*" id="vidFileInput" style="display:none">
+            </div>
+            <div class="upload-preview" id="vidUploadPreview">
+              <img id="vidUploadImg" alt="Uploaded source">
+              <button class="rm" id="vidUploadRemove"><i class="ri-close-line"></i></button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Prompt</label>
+            <textarea id="vidPrompt" placeholder="Describe the motion / scene... e.g. 'Slow camera pan across a neon-lit rainy street, cinematic'"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Duration</label>
+            <div class="pill-group" id="vidDurationGroup">
+              <button class="pill active" data-duration="5s"><i class="ri-timer-line"></i>5s</button>
+              <button class="pill" data-duration="8s"><i class="ri-timer-line"></i>8s</button>
+              <button class="pill" data-duration="10s"><i class="ri-timer-line"></i>10s</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Aspect Ratio</label>
+            <div class="pill-group" id="vidRatioGroup">
+              <button class="pill active" data-ratio="9:16"><i class="ri-smartphone-line"></i>9:16</button>
+              <button class="pill" data-ratio="16:9"><i class="ri-tv-line"></i>16:9</button>
+            </div>
+          </div>
+
+          <button class="btn primary full" id="vidGenerateBtn"><i class="ri-movie-2-line"></i>Generate Video</button>
+        </div>
+
+        <div class="panel">
+          <h2><i class="ri-play-circle-line"></i>Preview</h2>
+          <p class="sub">Your generated video preview will appear here.</p>
+          <div class="result-box" id="vidResultBox">
+            <i class="ri-video-add-line r-icon"></i>
+            <h4>No video yet</h4>
+            <p>Fill in your prompt or upload an image, then click Generate Video.</p>
+          </div>
+          <div class="result-media" id="vidResultMedia"><video id="vidResultVideo" controls></video></div>
+          <div class="result-actions hidden" id="vidResultActions">
+            <button class="btn sm full" id="vidPreviewBtn"><i class="ri-eye-line"></i>Preview</button>
+            <button class="btn sm full" id="vidDownloadBtn"><i class="ri-download-2-line"></i>Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY CREATIONS -->
+    <section class="view" id="view-creations">
+      <div id="creationsWrap"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="view" id="view-history">
+      <div id="historyWrap"></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="view-settings">
+      <div class="note-box" style="margin-bottom:20px">
+        <i class="ri-shield-keyhole-line"></i>
+        <div>Connect your real Image &amp; Video generation API credentials below. Keys are stored only in this browser (localStorage) and are used to call your configured endpoints directly. Nothing is generated or faked without a working configuration.</div>
+      </div>
+      <div class="settings-grid">
+        <div class="panel">
+          <h2><i class="ri-image-2-line"></i>Image API</h2>
+          <p class="sub">Configure your text/image-to-image provider (e.g. Stability AI, OpenAI Images, Replicate).</p>
+          <div class="field"><label>API Endpoint</label><input type="url" id="imgApiEndpoint" placeholder="https://api.yourprovider.com/v1/images/generations"></div>
+          <div class="field"><label>API Key</label><input type="password" id="imgApiKey" placeholder="sk-..."></div>
+          <button class="btn primary full" id="saveImgApi"><i class="ri-save-3-line"></i>Save Image API</button>
+        </div>
+        <div class="panel">
+          <h2><i class="ri-movie-2-line"></i>Video API</h2>
+          <p class="sub">Configure your text/image-to-video provider (e.g. Runway, Luma, Pika).</p>
+          <div class="field"><label>API Endpoint</label><input type="url" id="vidApiEndpoint" placeholder="https://api.yourprovider.com/v1/videos/generations"></div>
+          <div class="field"><label>API Key</label><input type="password" id="vidApiKey" placeholder="sk-..."></div>
+          <button class="btn primary full" id="saveVidApi"><i class="ri-save-3-line"></i>Save Video API</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============== STATE ============== */
+const LS_KEYS = { api:'aziz_api_config', creations:'aziz_creations', history:'aziz_history' };
+
+let apiConfig = JSON.parse(localStorage.getItem(LS_KEYS.api) || '{}');
+apiConfig.image = apiConfig.image || { endpoint:'', key:'' };
+apiConfig.video = apiConfig.video || { endpoint:'', key:'' };
+
+let creations = JSON.parse(localStorage.getItem(LS_KEYS.creations) || '[]');
+let history = JSON.parse(localStorage.getItem(LS_KEYS.history) || '[]');
+
+let imgState = { mode:'text-to-image', ratio:'1:1', uploadDataUrl:null, lastResult:null };
+let vidState = { mode:'text-to-video', duration:'5s', ratio:'9:16', uploadDataUrl:null, lastResult:null };
+
+function persist(){
+  localStorage.setItem(LS_KEYS.api, JSON.stringify(apiConfig));
+  localStorage.setItem(LS_KEYS.creations, JSON.stringify(creations));
+  localStorage.setItem(LS_KEYS.history, JSON.stringify(history));
+}
+
+/* ============== NAV / VIEWS ============== */
+const views = ['dashboard','image','video','creations','history','settings'];
+const titles = {
+  dashboard:['Dashboard','Overview of your creative workspace'],
+  image:['Image Generator','Create images from text or reference photos'],
+  video:['Video Generator','Create short video clips from text or images'],
+  creations:['My Creations','All your saved generated assets'],
+  history:['History','Full log of your generation requests'],
+  settings:['API Settings','Connect real image & video generation providers']
+};
+
+function goTo(view){
+  views.forEach(v=>{
+    document.getElementById('view-'+v).classList.toggle('active', v===view);
+  });
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
+  document.getElementById('pageTitle').textContent = titles[view][0];
+  document.getElementById('pageSub').textContent = titles[view][1];
+  if(view==='creations') renderCreations();
+  if(view==='history') renderHistory();
+  closeSidebar();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.addEventListener('click', ()=>goTo(btn.dataset.view));
+});
+
+document.querySelectorAll('[data-gtab]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const t = btn.dataset.gtab;
+    if(t==='video-jump') goTo('video');
+    else if(t==='image-jump') goTo('image');
+  });
+});
+
+/* Sidebar mobile toggle */
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+document.getElementById('menuBtn').addEventListener('click', ()=>{
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+});
+overlay.addEventListener('click', closeSidebar);
+function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+
+/* ============== TOAST ============== */
+function toast(msg, type='info', icon='ri-information-line'){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast '+type;
+  el.innerHTML = `<i class="${icon}"></i><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(20px)'; el.style.transition='.3s'; setTimeout(()=>el.remove(),300); }, 3800);
+}
+
+/* ============== PILL / MODE HANDLERS ============== */
+function setupPillGroup(groupId, dataAttr, onSelect){
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.pill').forEach(p=>{
+    p.addEventListener('click', ()=>{
+      group.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      onSelect(p.dataset[dataAttr]);
+    });
+  });
+}
+
+setupPillGroup('imgModeGroup','mode', (val)=>{
+  imgState.mode = val;
+  document.getElementById('imgUploadField').style.display = val==='image-to-image' ? 'block' : 'none';
+});
+setupPillGroup('imgRatioGroup','ratio', (val)=>{ imgState.ratio = val; });
+
+setupPillGroup('vidModeGroup','mode', (val)=>{
+  vidState.mode = val;
+  document.getElementById('vidUploadField').style.display = val==='image-to-video' ? 'block' : 'none';
+});
+setupPillGroup('vidDurationGroup','duration', (val)=>{ vidState.duration = val; });
+setupPillGroup('vidRatioGroup','ratio', (val)=>{ vidState.ratio = val; });
+
+/* ============== UPLOAD HANDLERS ============== */
+function setupUpload(zoneId, inputId, previewId, imgId, removeId, stateObj){
+  const zone = document.getElementById(zoneId);
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  const img = document.getElementById(imgId);
+  const removeBtn = document.getElementById(removeId);
+
+  zone.addEventListener('click', ()=>input.click());
+  zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.style.borderColor='var(--purple)'; });
+  zone.addEventListener('dragleave', ()=>{ zone.style.borderColor=''; });
+  zone.addEventListener('drop', e=>{
+    e.preventDefault(); zone.style.borderColor='';
+    if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  input.addEventListener('change', ()=>{ if(input.files[0]) handleFile(input.files[0]); });
+
+  function handleFile(file){
+    if(!file.type.startsWith('image/')){ toast('Please upload a valid image file.', 'error', 'ri-error-warning-line'); return; }
+    const reader = new FileReader();
+    reader.onload = e=>{
+      stateObj.uploadDataUrl = e.target.result;
+      img.src = e.target.result;
+      preview.style.display = 'block';
+      zone.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+  removeBtn.addEventListener('click', ()=>{
+    stateObj.uploadDataUrl = null;
+    preview.style.display = 'none';
+    zone.style.display = 'block';
+    input.value = '';
+  });
+}
+setupUpload('imgUploadZone','imgFileInput','imgUploadPreview','imgUploadImg','imgUploadRemove', imgState);
+setupUpload('vidUploadZone','vidFileInput','vidUploadPreview','vidUploadImg','vidUploadRemove', vidState);
+
+/* ============== API CALL STRUCTURE ============== */
+/*
+  These functions are ready to connect to any real image/video generation API.
+  Expected generic request shape — adjust field names to match your chosen provider's docs.
+*/
+async function callImageAPI(payload){
+  const cfg = apiConfig.image;
+  if(!cfg.endpoint || !cfg.key){
+    return { ok:false, notConfigured:true };
+  }
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 30000);
+  try{
+    const res = await fetch(cfg.endpoint, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+cfg.key
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if(!res.ok){
+      const text = await res.text().catch(()=> '');
+      return { ok:false, notConfigured:false, error:`API responded with status ${res.status}. ${text.slice(0,140)}` };
+    }
+    const data = await res.json();
+    // Expect data.url or data.image_url or data.data[0].url — adjust to your provider's response shape.
+    const url = data.url || data.image_url || (data.data && data.data[0] && data.data[0].url);
+    if(!url) return { ok:false, notConfigured:false, error:'API responded but no image URL was found in the response.' };
+    return { ok:true, url };
+  }catch(err){
+    clearTimeout(timeout);
+    return { ok:false, notConfigured:false, error: err.name==='AbortError' ? 'Request timed out.' : (err.message || 'Network error while contacting the API.') };
+  }
+}
+
+async function callVideoAPI(payload){
+  const cfg = apiConfig.video;
+  if(!cfg.endpoint || !cfg.key){
+    return { ok:false, notConfigured:true };
+  }
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 45000);
+  try{
+    const res = await fetch(cfg.endpoint, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+cfg.key
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if(!res.ok){
+      const text = await res.text().catch(()=> '');
+      return { ok:false, notConfigured:false, error:`API responded with status ${res.status}. ${text.slice(0,140)}` };
+    }
+    const data = await res.json();
+    const url = data.url || data.video_url || (data.data && data.data[0] && data.data[0].url);
+    if(!url) return { ok:false, notConfigured:false, error:'API responded but no video URL was found in the response.' };
+    return { ok:true, url };
+  }catch(err){
+    clearTimeout(timeout);
+    return { ok:false, notConfigured:false, error: err.name==='AbortError' ? 'Request timed out.' : (err.message || 'Network error while contacting the API.') };
+  }
+}
+
+/* ============== RESULT BOX RENDERERS ============== */
+function setResultBox(boxEl, state, {icon,title,text,tag}){
+  boxEl.className = 'result-box' + (state ? ' '+state : '');
+  boxEl.innerHTML = `
+    ${state==='loading' ? '<div class="spinner"></div>' : `<i class="${icon} r-icon"></i>`}
+    <h4>${title}</h4>
+    <p>${text}</p>
+    ${tag ? `<span class="code-tag">${tag}</span>` : ''}
+  `;
+}
+
+/* ============== IMAGE GENERATION ============== */
+const imgResultBox = document.getElementById('imgResultBox');
+const imgResultMedia = document.getElementById('imgResultMedia');
+const imgResultImg = document.getElementById('imgResultImg');
+const imgResultActions = document.getElementById('imgResultActions');
+const imgGenerateBtn = document.getElementById('imgGenerateBtn');
+
+async function generateImage(){
+  const prompt = document.getElementById('imgPrompt').value.trim();
+  if(imgState.mode==='text-to-image' && !prompt){
+    toast('Please enter a prompt to generate an image.', 'error', 'ri-error-warning-line');
+    return;
+  }
+  if(imgState.mode==='image-to-image' && !imgState.uploadDataUrl){
+    toast('Please upload a reference image for image-to-image mode.', 'error', 'ri-error-warning-line');
+    return;
+  }
+
+  imgResultMedia.style.display = 'none';
+  imgResultActions.classList.add('hidden');
+  imgGenerateBtn.disabled = true;
+  imgGenerateBtn.innerHTML = '<i class="ri-loader-4-line"></i>Generating...';
+  setResultBox(imgResultBox, 'loading', {title:'Generating image...', text:'Contacting your configured image API. This may take a few seconds.'});
+
+  const payload = {
+    mode: imgState.mode,
+    prompt,
+    aspect_ratio: imgState.ratio,
+    image: imgState.mode==='image-to-image' ? imgState.uploadDataUrl : undefined
+  };
+
+  const result = await callImageAPI(payload);
+  imgGenerateBtn.disabled = false;
+  imgGenerateBtn.innerHTML = '<i class="ri-magic-line"></i>Generate Image';
+
+  const histEntry = {
+    id: Date.now(),
+    type: 'image',
+    mode: imgState.mode,
+    ratio: imgState.ratio,
+    prompt: prompt || '(image-to-image, no prompt)',
+    time: new Date().toISOString(),
+    status: 'error'
+  };
+
+  if(result.notConfigured){
+    setResultBox(imgResultBox, 'warn', {
+      icon:'ri-error-warning-line',
+      title:'API not configured',
+      text:'No Image API endpoint/key is set. Go to API Settings and connect your image generation provider to enable real generation.',
+      tag:'STATUS: NOT_CONFIGURED'
+    });
+    histEntry.status = 'warn';
+    history.unshift(histEntry);
+    persist();
+    updateStatusBar();
+    renderHistoryIfActive();
+    toast('Image API is not configured yet.', 'error', 'ri-error-warning-line');
+    return;
+  }
+
+  if(!result.ok){
+    setResultBox(imgResultBox, 'error', {
+      icon:'ri-close-circle-line',
+      title:'Generation failed',
+      text: result.error || 'Something went wrong while contacting the API.',
+      tag:'STATUS: ERROR'
+    });
+    histEntry.status = 'error';
+    history.unshift(histEntry);
+    persist();
+    renderHistoryIfActive();
+    toast('Image generation failed.', 'error', 'ri-close-circle-line');
+    return;
+  }
+
+  // success
+  imgState.lastResult = { url: result.url, prompt, ratio: imgState.ratio, mode: imgState.mode };
+  imgResultImg.src = result.url;
+  imgResultMedia.style.display = 'block';
+  imgResultBox.className = 'result-box hidden';
+  imgResultActions.classList.remove('hidden');
+
+  creations.unshift({ id:Date.now(), type:'image', url:result.url, prompt, ratio:imgState.ratio, time:new Date().toISOString() });
+  histEntry.status = 'success';
+  history.unshift(histEntry);
+  persist();
+  updateStatusBar();
+  renderCreationsIfActive();
+  renderHistoryIfActive();
+  toast('Image generated successfully!', 'success', 'ri-check-line');
+}
+
+imgGenerateBtn.addEventListener('click', generateImage);
+document.getElementById('imgRegenBtn').addEventListener('click', generateImage);
+document.getElementById('imgDownloadBtn').addEventListener('click', ()=>{
+  if(!imgState.lastResult) return;
+  downloadFile(imgState.lastResult.url, 'aziz-image-'+Date.now()+'.png');
+});
+
+/* ============== VIDEO GENERATION ============== */
+const vidResultBox = document.getElementById('vidResultBox');
+const vidResultMedia = document.getElementById('vidResultMedia');
+const vidResultVideo = document.getElementById('vidResultVideo');
+const vidResultActions = document.getElementById('vidResultActions');
+const vidGenerateBtn = document.getElementById('vidGenerateBtn');
+
+async function generateVideo(){
+  const prompt = document.getElementById('vidPrompt').value.trim();
+  if(vidState.mode==='text-to-video' && !prompt){
+    toast('Please enter a prompt to generate a video.', 'error', 'ri-error-warning-line');
+    return;
+  }
+  if(vidState.mode==='image-to-video' && !vidState.uploadDataUrl){
+    toast('Please upload a source image for image-to-video mode.', 'error', 'ri-error-warning-line');
+    return;
+  }
+
+  vidResultMedia.style.display = 'none';
+  vidResultActions.classList.add('hidden');
+  vidGenerateBtn.disabled = true;
+  vidGenerateBtn.innerHTML = '<i class="ri-loader-4-line"></i>Generating...';
+  setResultBox(vidResultBox, 'loading', {title:'Generating video...', text:'Contacting your configured video API. Video generation can take longer than images.'});
+
+  const payload = {
+    mode: vidState.mode,
+    prompt,
+    duration: vidState.duration,
+    aspect_ratio: vidState.ratio,
+    image: vidState.mode==='image-to-video' ? vidState.uploadDataUrl : undefined
+  };
+
+  const result = await callVideoAPI(payload);
+  vidGenerateBtn.disabled = false;
+  vidGenerateBtn.innerHTML = '<i class="ri-movie-2-line"></i>Generate Video';
+
+  const histEntry = {
+    id: Date.now(),
+    type: 'video',
+    mode: vidState.mode,
+    ratio: vidState.ratio,
+    duration: vidState.duration,
+    prompt: prompt || '(image-to-video, no prompt)',
+    time: new Date().toISOString(),
+    status: 'error'
+  };
+
+  if(result.notConfigured){
+    setResultBox(vidResultBox, 'warn', {
+      icon:'ri-error-warning-line',
+      title:'API not configured',
+      text:'No Video API endpoint/key is set. Go to API Settings and connect your video generation provider to enable real generation.',
+      tag:'STATUS: NOT_CONFIGURED'
+    });
+    histEntry.status = 'warn';
+    history.unshift(histEntry);
+    persist();
+    updateStatusBar();
+    renderHistoryIfActive();
+    toast('Video API is not configured yet.', 'error', 'ri-error-warning-line');
+    return;
+  }
+
+  if(!result.ok){
+    setResultBox(vidResultBox, 'error', {
+      icon:'ri-close-circle-line',
+      title:'Generation failed',
+      text: result.error || 'Something went wrong while contacting the API.',
+      tag:'STATUS: ERROR'
+    });
+    histEntry.status = 'error';
+    history.unshift(histEntry);
+    persist();
+    renderHistoryIfActive();
+    toast('Video generation failed.', 'error', 'ri-close-circle-line');
+    return;
+  }
+
+  vidState.lastResult = { url: result.url, prompt, ratio: vidState.ratio, duration: vidState.duration, mode: vidState.mode };
+  vidResultVideo.src = result.url;
+  vidResultMedia.style.display = 'block';
+  vidResultBox.className = 'result-box hidden';
+  vidResultActions.classList.remove('hidden');
+
+  creations.unshift({ id:Date.now(), type:'video', url:result.url, prompt, ratio:vidState.ratio, duration:vidState.duration, time:new Date().toISOString() });
+  histEntry.status = 'success';
+  history.unshift(histEntry);
+  persist();
+  updateStatusBar();
+  renderCreationsIfActive();
+  renderHistoryIfActive();
+  toast('Video generated successfully!', 'success', 'ri-check-line');
+}
+
+vidGenerateBtn.addEventListener('click', generateVideo);
+document.getElementById('vidPreviewBtn').addEventListener('click', ()=>{
+  if(!vidState.lastResult) return;
+  vidResultVideo.play().catch(()=>{});
+});
+document.getElementById('vidDownloadBtn').addEventListener('click', ()=>{
+  if(!vidState.lastResult) return;
+  downloadFile(vidState.lastResult.url, 'aziz-video-'+Date.now()+'.mp4');
+});
+
+function downloadFile(url, filename){
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+/* ============== MY CREATIONS ============== */
+function renderCreations(){
+  const wrap = document.getElementById('creationsWrap');
+  if(!creations.length){
+    wrap.innerHTML = `<div class="empty-state"><i class="ri-gallery-line"></i><h3 style="margin:0 0 8px;color:#fff">No creations yet</h3><p style="margin:0">Generate your first image or video to see it appear here.</p></div>`;
+    return;
+  }
+  wrap.innerHTML = `<div class="gallery-grid">${creations.map(c=>`
+    <div class="gcard">
+      <div class="thumb">
+        <span class="type-tag">${c.type==='image'?'IMAGE':'VIDEO'} · ${c.ratio}</span>
+        ${c.type==='image' ? `<img src="${c.url}" alt="">` : `<video src="${c.url}" muted></video>`}
+      </div>
+      <div class="info">
+        <p>${escapeHtml(c.prompt || 'Untitled creation')}</p>
+        <div class="meta"><span>${formatDate(c.time)}</span><span>${c.duration||''}</span></div>
+        <button class="btn sm full" onclick="downloadFile('${c.url}','aziz-${c.type}-${c.id}.${c.type==='image'?'png':'mp4'}')"><i class="ri-download-2-line"></i>Download</button>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+function renderCreationsIfActive(){ if(document.getElementById('view-creations').classList.contains('active')) renderCreations(); }
+
+/* ============== HISTORY ============== */
+function renderHistory(){
+  const wrap = document.getElementById('historyWrap');
+  if(!history.length){
+    wrap.innerHTML = `<div class="empty-state"><i class="ri-history-line"></i><h3 style="margin:0 0 8px;color:#fff">No history yet</h3><p style="margin:0">Every generation request you make will be logged here.</p></div>`;
+    return;
+  }
+  const statusMap = { success:['success','Success','ri-check-line'], error:['error','Failed','ri-close-line'], warn:['warn','Not Configured','ri-error-warning-line'] };
+  wrap.innerHTML = `<div class="history-list">${history.map(h=>{
+    const s = statusMap[h.status] || statusMap.error;
+    const icon = h.type==='image' ? 'ri-image-2-line' : 'ri-movie-2-line';
+    return `<div class="hist-row">
+      <div class="h-icon"><i class="${icon}"></i></div>
+      <div class="h-body">
+        <strong>${h.type==='image'?'Image':'Video'} · ${h.mode} · ${h.ratio}${h.duration? ' · '+h.duration:''}</strong>
+        <span>${escapeHtml(h.prompt)} — ${formatDate(h.time)}</span>
+      </div>
+      <span class="status-tag ${s[0]}"><i class="${s[2]}"></i> ${s[1]}</span>
+    </div>`;
+  }).join('')}</div>`;
+}
+function renderHistoryIfActive(){ if(document.getElementById('view-history').classList.contains('active')) renderHistory(); }
+
+function escapeHtml(str){ return (str||'').replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+function formatDate(iso){ const d = new Date(iso); return d.toLocaleDateString()+' '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+
+/* ============== SETTINGS ============== */
+document.getElementById('imgApiEndpoint').value = apiConfig.image.endpoint;
+document.getElementById('imgApiKey').value = apiConfig.image.key;
+document.getElementById('vidApiEndpoint').value = apiConfig.video.endpoint;
+document.getElementById('vidApiKey').value = apiConfig.video.key;
+
+document.getElementById('saveImgApi').addEventListener('click', ()=>{
+  apiConfig.image.endpoint = document.getElementById('imgApiEndpoint').value.trim();
+  apiConfig.image.key = document.getElementById('imgApiKey').value.trim();
+  persist();
+  updateStatusBar();
+  toast('Image API settings saved.', 'success', 'ri-check-line');
+});
+document.getElementById('saveVidApi').addEventListener('click', ()=>{
+  apiConfig.video.endpoint = document.getElementById('vidApiEndpoint').value.trim();
+  apiConfig.video.key = document.getElementById('vidApiKey').value.trim();
+  persist();
+  updateStatusBar();
+  toast('Video API settings saved.', 'success', 'ri-check-line');
+});
+
+/* ============== STATUS BAR / STATS ============== */
+function updateStatusBar(){
+  const imgOk = !!(apiConfig.image.endpoint && apiConfig.image.key);
+  const vidOk = !!(apiConfig.video.endpoint && apiConfig.video.key);
+  const dots = [document.getElementById('sidebarDot'), document.getElementById('topDot')];
+  let statusText, dotClass;
+  if(imgOk && vidOk){ statusText = 'Image API · Video API connected'; dotClass='ok'; }
+  else if(imgOk || vidOk){ statusText = `${imgOk?'Image API connected':'Image API not connected'} · ${vidOk?'Video API connected':'Video API not connected'}`; dotClass='warn' in {} ? 'warn':'bad'; dotClass='bad'; if(imgOk||vidOk) dotClass='bad'; }
+  else { statusText = 'APIs not configured'; dotClass='bad'; }
+  dots.forEach(d=>{ d.className = 'dot '+dotClass; });
+  document.getElementById('sidebarStatus').textContent = imgOk||vidOk ? statusText : 'APIs not configured';
+  document.getElementById('topStatus').textContent = statusText;
+
+  // stats
+  document.getElementById('statImages').textContent = creations.filter(c=>c.type==='image').length;
+  document.getElementById('statVideos').textContent = creations.filter(c=>c.type==='video').length;
+  document.getElementById('statCreations').textContent = creations.length;
+  document.getElementById('statHistory').textContent = history.length;
+}
+
+updateStatusBar();
+</script>
+</body>
+</html>
