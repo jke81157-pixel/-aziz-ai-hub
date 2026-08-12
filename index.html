@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080815">
-  <title>AZIZ AI CREATIVE HUB – Creative Intelligence</title>
+  <title>AZIZ AI HUB – Creative Studio</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,29 +17,20 @@
       --panel-1: rgba(20, 20, 42, 0.75);
       --panel-2: #101024;
       --line: rgba(255, 255, 255, 0.11);
-      --line-strong: rgba(255, 255, 255, 0.18);
       --text: #f4f6ff;
       --muted: #a5a3bd;
       --purple: #8b5cf6;
       --pink: #ed3aac;
       --cyan: #25d0ff;
-      --lime: #b7f74a;
-      --orange: #ff964f;
-      --danger: #ff537e;
-      --success: #74e8a1;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
       --radius: 22px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       min-height: 100vh;
       color: var(--text);
       background: var(--bg);
       font-family: 'Manrope', Arial, sans-serif;
-      overflow-x: hidden;
       display: flex;
     }
 
@@ -135,7 +126,7 @@
       min-height: 100vh;
     }
 
-    /* Page Sections (SPA Behavior) */
+    /* Page Sections (SPA Navigation) */
     .page-section {
       display: none;
       animation: fadeIn 0.3s ease-in-out;
@@ -149,13 +140,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards & Components UI */
+    /* UI Cards */
     .card {
       background: var(--panel-1);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 24px;
-      margin-bottom: 20px;
+      margin-top: 20px;
       backdrop-filter: blur(12px);
     }
     
@@ -176,11 +167,12 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      margin-top: 15px;
       transition: 0.2s;
     }
     .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
 
-    /* Form UI Elements */
+    /* Form Fields */
     .field { margin-bottom: 20px; }
     label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 14px; font-weight: 600; }
     textarea, input {
@@ -236,15 +228,15 @@
       <p style="color: var(--muted);">Overview of your creative workspace</p>
       
       <div class="grid-2" style="margin-top: 25px;">
-        <div class="card">
+        <div class="card" style="margin-top:0;">
           <h3><i class="ri-image-line" style="color: var(--purple);"></i> AI Image Generator</h3>
-          <p style="color: var(--muted); font-size: 14px;">Generate high quality images using custom text prompts.</p>
-          <button class="btn-action switch-tab" data-target="image-generator">Open Image Generator</button>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 6px;">Generate high quality images using custom text prompts.</p>
+          <button class="btn-action nav-trigger" data-target="image-generator">Open Image Generator</button>
         </div>
-        <div class="card">
+        <div class="card" style="margin-top:0;">
           <h3><i class="ri-video-line" style="color: var(--cyan);"></i> AI Video Generator</h3>
-          <p style="color: var(--muted); font-size: 14px;">Create short video clips from text or reference images.</p>
-          <button class="btn-action switch-tab" data-target="video-generator">Open Video Generator</button>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 6px;">Create short video clips from text or reference images.</p>
+          <button class="btn-action nav-trigger" data-target="video-generator">Open Video Generator</button>
         </div>
       </div>
     </section>
@@ -253,7 +245,7 @@
       <h2>AI Image Generator</h2>
       <p style="color: var(--muted);">Create images using AI text-to-image models.</p>
 
-      <div class="card" style="margin-top:20px;">
+      <div class="card">
         <div class="field">
           <label>Prompt</label>
           <textarea rows="4" placeholder="Describe the image you want to generate..."></textarea>
@@ -266,7 +258,7 @@
       <h2>AI Video Generator</h2>
       <p style="color: var(--muted);">Turn your visual prompts into animated video clips.</p>
 
-      <div class="card" style="margin-top:20px;">
+      <div class="card">
         <div class="field">
           <label>Video Prompt</label>
           <textarea rows="4" placeholder="Describe the video action or visual motion..."></textarea>
@@ -278,7 +270,8 @@
     <section id="my-creations" class="page-section">
       <h2>My Creations</h2>
       <p style="color: var(--muted);">Your generated images and videos gallery.</p>
-      <div class="card" style="margin-top:20px; text-align:center; padding: 40px;">
+
+      <div class="card" style="text-align:center; padding: 40px;">
         <i class="ri-folder-open-line" style="font-size: 48px; color: var(--muted);"></i>
         <p style="color: var(--muted); margin-top: 10px;">No creations saved yet.</p>
       </div>
@@ -288,7 +281,7 @@
       <h2>API Settings</h2>
       <p style="color: var(--muted);">Connect your API provider keys to start generating media.</p>
 
-      <div class="card" style="margin-top:20px;">
+      <div class="card">
         <div class="field">
           <label>Image Provider API Key</label>
           <input type="password" placeholder="Enter API Key...">
@@ -305,37 +298,41 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const navButtons = document.querySelectorAll('[data-target]');
+      const allTriggers = document.querySelectorAll('[data-target]');
       const sections = document.querySelectorAll('.page-section');
+      const sidebarBtns = document.querySelectorAll('.sidebar .nav-btn');
 
-      function switchSection(targetId) {
-        // Hide all sections
+      function navigateTo(targetId) {
+        // Hide all page sections
         sections.forEach(sec => sec.classList.remove('active'));
 
-        // Remove active class from all nav buttons
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
-        // Show target section
+        // Show targeted section
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
           targetSection.classList.add('active');
         }
 
-        // Highlight active button in sidebar
-        const activeNavBtn = document.querySelector(`.sidebar .nav-btn[data-target="${targetId}"]`);
-        if (activeNavBtn) {
-          activeNavBtn.classList.add('active');
-        }
+        // Update active class on sidebar buttons
+        sidebarBtns.forEach(btn => {
+          if (btn.getAttribute('data-target') === targetId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
       }
 
-      // Add click listener to buttons
-      navButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = btn.getAttribute('data-target');
-          if (target) switchSection(target);
+      // Attach click events
+      allTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = trigger.getAttribute('data-target');
+          if (target) {
+            navigateTo(target);
+          }
         });
       });
     });
   </script>
 </body>
-      </html>
+  </html>
