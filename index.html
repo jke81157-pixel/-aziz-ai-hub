@@ -382,21 +382,4 @@ textarea{min-height:110px;line-height:1.5}
           <div class="field">
             <label>Prompt</label>
             <textarea id="imgPrompt" placeholder="Describe the image you want to generate... e.g. 'A futuristic city skyline at sunset, cinematic lighting, ultr
-
-              <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const navButtons = document.querySelectorAll('.nav button');
-    
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        if (btn.innerText.toLowerCase().includes('settings')) {
-          alert('يرجى ربط المفاتيح عبر بيئة العمل أو إدخال Provider Keys الخاصة بـ Replicate/OpenAI لتنشيط اللوحة.');
-        }
-      });
-    });
-  });
-              </script>
               
